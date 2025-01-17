@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio - Tienda Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos generales */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #8A4FFF;
+            color: white;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 8px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            position: relative;
+            height: 55px;
+        }
+
+        header .logo-container {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        header .logo-container img {
+            width: 170px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            padding: 12px;
+            margin: 0 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        header nav a:hover {
+            background-color: #E1B6FF;
+            color: #8A4FFF;
+            transform: scale(1.05);
+        }
+
+        /* Menú móvil emergente */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 25px;
+            height: 21px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hamburger div {
+            height: 3px;
+            background-color: white;
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            left: 0;
+            display: flex;
+        }
+
+        .menu-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 20px;
+            text-align: left;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-content a {
+            display: block;
+            margin: 10px 0;
+            font-size: 1.5rem;
+            color: #8A4FFF;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .menu-content a:hover {
+            color: #fff;
+            background-color: #8A4FFF;
+            transform: scale(1.1);
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            color: #8A4FFF;
+            cursor: pointer;
+        }
+
+        /* Estilos para la sección de bienvenida */
+        .welcome-section {
+            padding: 120px 20px 50px 20px;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+
+        .welcome-section h1 {
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        .welcome-section p {
+            font-size: 1.1rem;
+            color: #666;
+            margin: 20px 0;
+        }
+
+        .welcome-section a {
+            background-color: #8A4FFF;
+            color: white;
+            text-decoration: none;
+            padding: 10px 30px;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .welcome-section a:hover {
+            background-color: #5a2d99;
+        }
+
+        /* Estilos para los productos destacados */
+        .featured-products {
+            display: flex;
+            justify-content: space-around;
+            padding: 50px 0;
+            background-color: #fff;
+        }
+
+        .product-card {
+            width: 30%;
+            padding: 15px;
+            text-align: center;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card img {
+            width: 100%;
+            border-radius: 5px;
+            max-height: 200px;
+            object-fit: cover;
+        }
+
+        .product-card h3 {
+            margin: 15px 0;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .product-card p {
+            font-size: 1rem;
+            color: #777;
+        }
+
+        .product-card a {
+            display: inline-block;
+            margin-top: 15px;
+            background-color: #8A4FFF;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-card a:hover {
+            background-color: #5a2d99;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Estilos para dispositivos móviles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .mobile-menu.open {
+                display: flex;
+            }
+
+            .featured-products {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .product-card {
+                width: 80%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="logo.png" alt="Logo Tienda">
+            </div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="nav-links">
+                <a href="./index.html" data-text="Inicio">Inicio</a>
+                <a href="./productos.html" data-text="Productos">Productos</a>
+                <a href="./sobre.html" data-text="Sobre Nosotros">Sobre Nosotros</a>
+                <a href="./contacto.html" data-text="Contacto">Contacto</a>
+                
+            </div>
+        </nav>
+    </header>
+
+    <!-- Menú móvil -->
+    <div class="mobile-menu">
+        <div class="menu-content">
+            <span class="close-menu" onclick="toggleMenu()">×</span>
+            <a href="./index.html" data-text="Inicio">Inicio</a>
+            <a href="./productos.html" data-text="Productos">Productos</a>
+            <a href="./sobre.html" data-text="Sobre Nosotros">Sobre Nosotros</a>
+            <a href="./contacto.html" data-text="Contacto">Contacto</a>
+            
+        </div>
+    </div>
+
+    <section class="welcome-section">
+        <h1>Bienvenidos a Nuestra Tienda Online</h1>
+        <p>Explora nuestros productos exclusivos y encuentra lo que necesitas para hacer tu vida más fácil y divertida.</p>
+        <a href="/productos.html">Explorar Productos</a>
+    </section>
+
+    <section class="featured-products">
+        <div class="product-card">
+            <img src="logo.png" alt="Producto 1">
+            <h3>Producto 1</h3>
+            <p>Descripción breve del producto 1.</p>
+            <a href="#">Ver Detalles</a>
+        </div>
+        <div class="product-card">
+            <img src="logo.png" alt="Producto 2">
+            <h3>Producto 2</h3>
+            <p>Descripción breve del producto 2.</p>
+            <a href="#">Ver Detalles</a>
+        </div>
+        <div class="product-card">
+            <img src="logo.png" alt="Producto 3">
+            <h3>Producto 3</h3>
+            <p>Descripción breve del producto 3.</p>
+            <a href="#">Ver Detalles</a>
+        </div>
+    </section>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.mobile-menu');
+            menu.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

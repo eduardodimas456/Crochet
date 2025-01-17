@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Productos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #F8F8F8;
+            color: #333;
+        }
+
+        /* Header / Barra de Navegación */
+        header {
+            background-color: #8A4FFF; /* Morado elegante */
+            color: rgb(0, 0, 0);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Sombra más suave */
+        }
+
+        header nav {
+            display: flex;
+            justify-content: space-between; /* Alinea el logo y el botón de hamburguesa */
+            align-items: center;
+            padding: 0 30px;
+            position: relative;
+        }
+
+        header nav a {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            padding: 12px;
+            margin: 0 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        header nav a:hover {
+            background-color: #E1B6FF;
+            color: #8A4FFF;
+        }
+
+        header img {
+            width: 170px;
+            height: auto;
+        }
+
+        /* Botón de hamburguesa en la esquina izquierda */
+        .hamburger {
+            display: none; /* Estaba en none, lo cambiamos más abajo */
+            flex-direction: column;
+            justify-content: space-between;
+            width: 25px;
+            height: 21px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hamburger div {
+            height: 3px;
+            background-color: white;
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        /* Menú móvil */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            left: 0;
+            display: flex;
+        }
+
+        .menu-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 20px;
+            text-align: left;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-content a {
+            display: block;
+            margin: 10px 0;
+            font-size: 1.5rem;
+            color: #8A4FFF;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .menu-content a:hover {
+            color: #fff;
+            background-color: #8A4FFF;
+            transform: scale(1.1);
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            color: #8A4FFF;
+            cursor: pointer;
+        }
+
+        /* Mostrar el botón de hamburguesa en pantallas pequeñas */
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            header nav a {
+                display: none; /* Oculta los enlaces en la versión móvil */
+            }
+
+            /* Mostrar el menú móvil cuando se activa */
+            .mobile-menu.open {
+                left: 0;
+                display: flex;
+            }
+
+            /* Ajuste de la imagen del logo */
+            header img {
+                width: 120px; /* Puedes ajustarlo según el tamaño */
+            }
+
+              /* Sección de Productos */
+        .product-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px;
+            padding: 200px 20px 40px 20px; /* Añadido margen superior para separar las tarjetas */
+        }
+
+        .product-card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 20px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card h3 {
+            font-size: 1.8rem;
+            color: #333;
+            margin: 15px 0;
+        }
+
+        .product-card .price {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #D97BFF;
+            margin: 10px 0;
+        }
+
+        .product-card .buy-button {
+            background-color: #8A4FFF;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 25px;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .product-card .buy-button:hover {
+            background-color: #6A2EFF;
+            transform: translateY(-3px);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-card img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer a {
+            color: #E1B6FF;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+          /* Mobile Responsiveness */
+          @media screen and (max-width: 768px) {
+            header nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            header nav a {
+                font-size: 1rem;
+                margin: 5px 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .menu-mobile {
+                display: none;
+            }
+
+            /* Estilos generales para el logo */
+            header nav {
+                display: flex;
+                justify-content: center;  /* Centra el contenido dentro del header */
+                align-items: center;
+                padding: 0 30px;
+                position: relative;
+            }
+
+            header nav .logo-container {
+                text-align: center;  /* Centra la imagen dentro de este contenedor */
+            }
+
+            header img {
+                width: 170px;
+                height: auto;
+                max-width: 100%
+            }
+  
+
+        }
+    }
+    </style>
+</head>
+<body>
+
+<!-- Barra de Navegación -->
+<header>
+    <nav>  
+        <!-- Botón de hamburguesa en la esquina izquierda -->
+        <div class="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo de la tienda">
+        </div>
+    </nav>
+    <!-- Menú móvil -->
+    <div class="mobile-menu">
+        <div class="menu-content">
+            <span class="close-menu" onclick="toggleMenu()">×</span>
+            <a href="index.html" data-text="Inicio">Inicio</a>
+            <a href="productos.html" data-text="Productos">Productos</a>
+            <a href="sobre.html" data-text="Sobre Nosotros">Sobre Nosotros</a>
+            <a href="contacto.html" data-text="Contacto">Contacto</a>
+        </div>
+    </div>
+</header>
+
+<!-- Sección de Productos -->
+<div class="product-cards">
+    <div class="product-card">
+        <img src="logo.png" alt="Producto 1">
+        <h3>Tejido a Mano - Bufanda</h3>
+        <p class="price">$25.00</p>
+        <button class="buy-button" onclick="window.location.href='https://wa.me/1234567890'">Comprar Ahora</button>
+    </div>
+    <div class="product-card">
+        <img src="logo.png" alt="Producto 2">
+        <h3>Tejido a Mano - Sombrero</h3>
+        <p class="price">$15.00</p>
+        <button class="buy-button" onclick="window.location.href='https://wa.me/1234567890'">Comprar Ahora</button>
+    </div>
+    <div class="product-card">
+        <img src="https://via.placeholder.com/300x200" alt="Producto 3">
+        <h3>Tejido a Mano - Chaleco</h3>
+        <p class="price">$30.00</p>
+        <button class="buy-button" onclick="window.location.href='https://wa.me/1234567890'">Comprar Ahora</button>
+    </div>
+    <div class="product-card">
+        <img src="https://via.placeholder.com/300x200" alt="Producto 4">
+        <h3>Tejido a Mano - Bufanda</h3>
+        <p class="price">$25.00</p>
+        <button class="buy-button" onclick="window.location.href='https://wa.me/1234567890'">Comprar Ahora</button>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2025 Callizos Shop | <a href="#">Privacidad</a> | <a href="#">Términos de Uso</a></p>
+</footer>
+
+<!-- Scripts -->
+<script>
+    // Función para mostrar el menú móvil
+    function toggleMenu() {
+        document.querySelector('.mobile-menu').classList.toggle('open');
+    }
+
+    document.querySelector('.hamburger').addEventListener('click', toggleMenu);
+</script>
+
+</body>
+</html>

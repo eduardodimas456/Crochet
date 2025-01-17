@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Tienda de Crochet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@400;600&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos generales */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #F8F8F8;
+            color: #333;
+        }
+
+        /* Header / Barra de Navegación */
+        header {
+            background-color: #8A4FFF; /* Morado elegante */
+            color: rgb(0, 0, 0);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Sombra más suave */
+        }
+
+        header nav {
+            display: flex;
+            justify-content: space-between; /* Alinea el logo y el botón de hamburguesa */
+            align-items: center;
+            padding: 0 30px;
+            position: relative;
+        }
+
+        header nav a {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            padding: 12px;
+            margin: 0 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        header nav a:hover {
+            background-color: #E1B6FF;
+            color: #8A4FFF;
+        }
+
+        header img {
+            width: 170px;
+            height: auto;
+        }
+
+        /* Botón de hamburguesa en la esquina izquierda */
+        .hamburger {
+            display: none; /* Estaba en none, lo cambiamos más abajo */
+            flex-direction: column;
+            justify-content: space-between;
+            width: 25px;
+            height: 21px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hamburger div {
+            height: 3px;
+            background-color: white;
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        /* Menú móvil */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            left: 0;
+            display: flex;
+        }
+
+        .menu-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 20px;
+            text-align: left;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-content a {
+            display: block;
+            margin: 10px 0;
+            font-size: 1.5rem;
+            color: #8A4FFF;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .menu-content a:hover {
+            color: #fff;
+            background-color: #8A4FFF;
+            transform: scale(1.1);
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            color: #8A4FFF;
+            cursor: pointer;
+        }
+
+        /* Mostrar el botón de hamburguesa en pantallas pequeñas */
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            header nav a {
+                display: none; /* Oculta los enlaces en la versión móvil */
+            }
+
+            /* Mostrar el menú móvil cuando se activa */
+            .mobile-menu.open {
+                left: 0;
+                display: flex;
+            }
+
+            /* Ajuste de la imagen del logo */
+            header img {
+                width: 120px; /* Puedes ajustarlo según el tamaño */
+            }
+
+        /* Estilos para la sección de contacto */
+        .contact-section {
+            background-color: #f2f2f2;
+            padding: 120px 20px 80px;  /* Se ha añadido padding-top para alejar la sección */
+            text-align: center;
+            color: #333;
+        }
+
+        .contact-section h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: #8A4FFF;
+        }
+
+        .contact-section p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .contact-background {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-background:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Iconos de redes sociales */
+        .social-icons a {
+            color: #333;
+            font-size: 2.5rem;
+            margin: 0 20px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color:  #8A4FFF;
+            transform: scale(1.2);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #8A4FFF;
+            color: white;
+            text-align: center;
+            padding: 60px 20px 30px;  /* Se ha añadido padding-top para bajarlo más */
+            font-family: 'Poppins', sans-serif;
+
+              /* Mobile Responsiveness */
+          @media screen and (max-width: 768px) {
+            header nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            header nav a {
+                font-size: 1rem;
+                margin: 5px 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .menu-mobile {
+                display: none;
+            }
+
+            /* Estilos generales para el logo */
+            header nav {
+                display: flex;
+                justify-content: center;  /* Centra el contenido dentro del header */
+                align-items: center;
+                padding: 0 30px;
+                position: relative;
+            }
+
+            header nav .logo-container {
+                text-align: center;  /* Centra la imagen dentro de este contenedor */
+            }
+
+            header img {
+                width: 170px;
+                height: auto;
+                max-width: 100%
+            }
+  
+
+        }
+    }
+      /* Footer */
+      footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer a {
+            color: #E1B6FF;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+          /* Mobile Responsiveness */
+          @media screen and (max-width: 768px) {
+            header nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            header nav a {
+                font-size: 1rem;
+                margin: 5px 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .menu-mobile {
+                display: none;
+            }
+
+            /* Estilos generales para el logo */
+            header nav {
+                display: flex;
+                justify-content: center;  /* Centra el contenido dentro del header */
+                align-items: center;
+                padding: 0 30px;
+                position: relative;
+            }
+
+            header nav .logo-container {
+                text-align: center;  /* Centra la imagen dentro de este contenedor */
+            }
+
+            header img {
+                width: 170px;
+                height: auto;
+                max-width: 100%
+            }
+  
+
+        }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Barra de navegación -->
+<header>
+    <nav>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo Crochet" class="logo">
+        </div>
+        <div class="nav-links">
+            <a href="index.html" data-text="Inicio">Inicio</a>
+            <a href="productos.html" data-text="Productos">Productos</a>
+            <a href="sobre.html" data-text="Sobre Nosotros">Sobre Nosotros</a>
+            <a href="contacto.html" data-text="Contacto">Contacto</a>
+        </div>
+
+        <!-- Botón de hamburguesa -->
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </nav>
+</header>
+
+<!-- Menú emergente -->
+<div class="mobile-menu" id="mobile-menu">
+    <div class="menu-content">
+        <span class="close-menu" onclick="toggleMenu()">&times;</span>
+        <a href="index.html" data-text="Inicio">Inicio</a>
+        <a href="productos.html" data-text="Productos">Productos</a>
+        <a href="productos.html" data-text="Productos">Sobre Nosotros</a>
+        <a href="contacto.html" data-text="Contacto">Contacto</a>
+    </div>
+</div>
+
+<!-- Sección de contacto -->
+<div class="contact-section" id="contact">
+    <div class="contact-background">
+        <h2>Contáctanos</h2>
+        <p>¡Estamos aquí para ayudarte! Si tienes preguntas o necesitas más información, no dudes en contactarnos a través de nuestras redes sociales o por correo electrónico.</p>
+
+        <div class="contact-description">
+            <p>En nuestra tienda ofrecemos productos hechos a mano con amor y dedicación. Cada pieza es única y realizada con materiales de la mejor calidad. Si tienes alguna consulta o quieres hacer un pedido personalizado, ¡contáctanos ahora!</p>
+        </div>
+
+        <div class="social-icons">
+            <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/tuusuario" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/tuusuario" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="mailto:contacto@tucorreo.com" target="_blank"><i class="fas fa-envelope"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2025 Tienda de Crochet Hecho a Mano. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+    // Función para abrir/cerrar el menú en dispositivos móviles
+    function toggleMenu() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('open');
+    }
+</script>
+
+</body>
+</html>
